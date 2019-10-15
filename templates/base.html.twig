@@ -12,8 +12,8 @@
         {% block body %}
             {% if form is defined %}
             {{ form_start(form, {'attr': {'id': 'form'}}) }}
-            <div id="qq">
-                <div class="dd">
+            <div id="wrapper">
+                <div class="param">
                     <select id="form_property" name="form[property][]">
                         <option>size</option>
                         <option>forks</option>
@@ -25,12 +25,13 @@
                         <option><</option>
                         <option>=</option>
                     </select>
-                    <input type="number" required id="form_value" name="form[value][]" value="ar@bar.com" />
+                    <input type="number" required id="form_value" name="form[value][]" value="" />
                 </div>
             </div>
             {{ form_end(form) }}
 
             <button id="add-row">+</button>
+            <a href="#" id="clear">Clear</a>
             {% endif %}
             {% if items is defined %}
                 <table class="table">
@@ -59,24 +60,35 @@
             <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
             <script>
+
                 $('#add-row').on('click', function () {
-                    if ($('.dd').length < 4) {
-                        $('#qq').append('<div class="dd">\n' +
-                            '                    <select id="form_property" name="form[property][]">\n' +
-                            '                        <option>size</option>\n' +
-                            '                        <option>forks</option>\n' +
-                            '                        <option>stars</option>\n' +
-                            '                        <option>followers</option>\n' +
-                            '                    </select>\n' +
-                            '                    <select id="form_option" name="form[option][]">\n' +
-                            '                        <option>></option>\n' +
-                            '                        <option><</option>\n' +
-                            '                        <option>=</option>\n' +
-                            '                    </select>\n' +
-                            '                    <input type="number" required id="form_value" name="form[value][]" value="ar@bar.com" />\n' +
-                            '                </div>'
+                    if ($('.param').length < 4) {
+                        $('#wrapper').append(
+                            '<div class="param">\n' +
+                            '<select id="form_property" name="form[property][]">\n' +
+                            '    <option>size</option>\n' +
+                            '    <option>forks</option>\n' +
+                            '    <option>stars</option>\n' +
+                            '    <option>followers</option>\n' +
+                            '</select>\n' +
+                            '<select id="form_option" name="form[option][]">\n' +
+                            '    <option>></option>\n' +
+                            '    <option><</option>\n' +
+                            '    <option>=</option>\n' +
+                            '</select>\n' +
+                            '<input type="number" required id="form_value" name="form[value][]" value="" />\n' +
+                            '<a href="#" class="delete">Delete</a>' +
+                            '</div>'
                         );
                     }
+                });
+                $('#wrapper').on('click','.delete',function (e) {
+                    e.preventDefault();
+                    $(this).parent('.param').remove();
+                })
+                $('#clear').on('click',function (e) {
+                    e.preventDefault();
+                    $('.param').filter(":contains('Delete')").remove();
                 })
             </script>
         {% endblock %}

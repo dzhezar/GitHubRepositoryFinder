@@ -17,20 +17,15 @@ class Form extends AbstractType
     {
         $builder
             ->add('property', CollectionType::class, array(
-            // каждая запись в массиве будет полем "email"
-//            'entry_type' => ChoiceType::class,
             'allow_add' => true,
                 'label' => false
         ))
             ->add('option', CollectionType::class, array(
-                // каждая запись в массиве будет полем "email"
-//                'entry_type' => ChoiceType::class,
                 'allow_add' => true,
                 'label' => false
 
             ))
             ->add('value', CollectionType::class, array(
-                // каждая запись в массиве будет полем "email"
                 'allow_add' => true,
                 'label' => false
 

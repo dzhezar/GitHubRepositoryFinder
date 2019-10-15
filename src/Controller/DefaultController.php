@@ -20,16 +20,17 @@ class DefaultController extends AbstractController
         if ($form->isSubmitted()) {
 
             $data = $form->getData();
-            $properies = $data['property'];
+            $properies = array_unique($data['property']);
             $options = $data['option'];
             $values = $data['value'];
-            $array = '';
+            $query = '';
+
             foreach ($properies as $index => $value) {
-                $array .= $value.':'.$options[$index].$values[$index].'+';
+                $query .= $value.':'.$options[$index].$values[$index].'+';
             }
-            $str = rtrim($array,'+');
+            rtrim($query,'+');
             $httpClient = HttpClient::create();
-            $items = $httpClient->request('GET','https://api.github.com/search/repositories?q='.$str)->toArray()['items'];
+            $items = $httpClient->request('GET','https://api.github.com/search/repositories?q='.$query)->toArray()['items'];
 
             return $this->render('base.html.twig',[
                 'items' => $items
