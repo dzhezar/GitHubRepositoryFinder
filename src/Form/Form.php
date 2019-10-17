@@ -5,10 +5,7 @@ namespace App\Form;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class Form extends AbstractType
@@ -30,7 +27,6 @@ class Form extends AbstractType
                 'label' => false
 
             ))
-            ->add('submit',SubmitType::class)
             ->getForm()
         ;
     }
